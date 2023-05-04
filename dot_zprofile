@@ -1,0 +1,47 @@
+# ~/.zprofile
+
+# Really dumb but we reset the path here if tmux
+# This will avoid duplicates and a F'd path
+if [[ $TMUX ]]; then
+	if [ -x /usr/libexec/path_helper ]; then
+		PATH="" # Add this line
+  		eval `/usr/libexec/path_helper -s`
+	fi
+fi
+
+eval $(/opt/homebrew/bin/brew shellenv)
+
+export "PATH=$HOME/bin:$PATH"
+export EDITOR="/opt/homebrew/bin/nvim"
+
+# Configuring Python (pyenv)
+export PYENV_ROOT="$HOME/.pyenv"
+export PIPENV_PYTHON="$PYENV_ROOT/shims/python"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
+
+eval "$(rbenv init - zsh)"
+
+FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+
+
+# Bindkey f for fzf
+bindkey -s ^f "tmux-sessionizer\n"
+
+# Needed for bash completion in ZSH
+autoload -Uz compinit bashcompinit
+compinit
+bashcompinit
+
+# tabtab source for packages
+# uninstall by removing these lines
+# [[ -f ~/.config/tabtab/__tabtab.zsh ]] && . ~/.config/tabtab/__tabtab.zsh || true
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && . "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && . "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+function gi() { curl -sLw n https://www.toptal.com/developers/gitignore/api/$@ ;}
+
