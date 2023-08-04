@@ -10,6 +10,7 @@ opt.scrolloff = 4
 opt.signcolumn = "no"
 opt.wildmenu = true
 opt.wrap = false
+opt.updatetime = 50
 
 -- [[ Filetypes ]]
 opt.encoding = 'utf8'
@@ -23,7 +24,7 @@ opt.termguicolors = true
 opt.ignorecase = true
 opt.smartcase = true
 opt.incsearch = true
-opt.hlsearch = true 
+opt.hlsearch = false 
 opt.showmatch = true
 
 -- [[ Whitespace ]]
@@ -36,3 +37,10 @@ opt.backspace = "indent,eol,start"
 -- [[ Splits ]]
 opt.splitright = true
 opt.splitbelow = true
+
+-- [[ History ]]
+opt.swapfile = false
+opt.backup = false
+opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+opt.undofile = true
+

@@ -1,3 +1,5 @@
+echo "[$(date)] PID: $$ PPID: $(ps -o ppid= -p $$)  Sourcing  ${funcstack[-1]}	\t# $(ps -o args= -p $$)" >> /Users/mslanker/zsh_init.log
+
 # ~/.zprofile
 
 # Really dumb but we reset the path here if tmux
@@ -42,6 +44,17 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && . "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/.cargo/env ] && source ~/.cargo/env
 
 function gi() { curl -sLw n https://www.toptal.com/developers/gitignore/api/$@ ;}
 
+pb-kill-line () {
+  zle kill-line   # `kill-line` is the default ctrl+k binding
+  echo -n $CUTBUFFER | pbcopy
+}
+
+zle -N pb-kill-line  # register our new function
+
+# Uncomment below to keep ctrl-k as is; ctrl-shift-k will use pbcoopy
+#bindkey '^k' pb-kill-line  # change the ctrl+k binding to use our new function
+bindkey '^K' pb-kill-line  # change the ctrl+k binding to use our new function

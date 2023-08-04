@@ -74,6 +74,16 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
+  Playground = {
+    loaded = true,
+    path = "/Users/mslanker/.local/share/nvim/site/pack/packer/start/Playground",
+    url = "https://github.com/nvim-treesitter/Playground"
+  },
+  harpoon = {
+    loaded = true,
+    path = "/Users/mslanker/.local/share/nvim/site/pack/packer/start/harpoon",
+    url = "https://github.com/theprimeagen/harpoon"
+  },
   ["nvim-tree.lua"] = {
     loaded = true,
     path = "/Users/mslanker/.local/share/nvim/site/pack/packer/start/nvim-tree.lua",
@@ -108,6 +118,21 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/mslanker/.local/share/nvim/site/pack/packer/start/tokyonight.nvim",
     url = "https://github.com/folke/tokyonight.nvim"
+  },
+  undotree = {
+    loaded = true,
+    path = "/Users/mslanker/.local/share/nvim/site/pack/packer/start/undotree",
+    url = "https://github.com/mbbill/undotree"
+  },
+  ["vim-fugitive"] = {
+    loaded = true,
+    path = "/Users/mslanker/.local/share/nvim/site/pack/packer/start/vim-fugitive",
+    url = "https://github.com/tpope/vim-fugitive"
+  },
+  ["vim-surround"] = {
+    loaded = true,
+    path = "/Users/mslanker/.local/share/nvim/site/pack/packer/start/vim-surround",
+    url = "https://github.com/tpope/vim-surround"
   }
 }
 
