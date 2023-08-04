@@ -1,0 +1,59 @@
+#!/usr/bin/env zsh
+
+# This file seems overly fragile and I have had to spend a ridiculous amount of time
+# debugging things that seem to randomly break.  Therefore expect lots of comments.
+
+selected="$(readlink -f ~/code/opstack/isc/portal)"
+
+dc_file="$selected/devkit/docker-compose.yml"
+if [ ! -f "$dc_file" ]; then
+    echo "$dc_file not found. Exiting..."
+    exit 0
+fi
+
+url="host.docker.internal"
+env_vars="PIPENV_PYTHON=/Users/mslanker/.pyenv/shims/python LOGLEVEL=DEBUG"
+
+# it took me entirely too long to figure this out but it seems that 
+# tmux new-window doesn't spawn a login shell and since I don't have all my stuff
+# in ~/.zshrc I was getting errors. solution? source ~/.zprofile only
+source_me=". ~/.zprofile"
+
+rp_command="docker compose --profile proxy up"
+be_command="pipenv run npx sls offline --stage local --host"
+db_command="pipenv run npx sls dynamodb start --migrate --stage local"
+# db_command="pipenv run npx sls dynamodb migrate --stage local \
+#     && inv local.gen -e slanker@opstack.us -f Matthew -l Slanker -u $USER"
+fe_command="pipenv run npx ng serve --configuration=local --public-host=http://"
+
+selected_name=$(basename "$selected" | tr . _)
+tmux_running=$(pgrep tmux) # find PID if tmux is running
+
+# ensure the tmux is running and that we are in it
+if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
+    # if not 
+	tmux new "$0; $SHELL"
+    exit 0
+fi
+
+if ! tmux has-session -t=$selected_name 2> /dev/null; then
+    tmux new-session -ds $selected_name-dev -c $selected # this new session does spawn a login shell
+    tmux new-window -t $selected_name-dev:1 -c $selected/devkit "$rp_command" # this new windows does not get a login shell (not sure if interactive)
+
+    # tmux rename-window -t portal:0 sls-offline
+    # tmux new-window -n dynamodb -t portal:1 -c $selected '$env_vars $db_command'
+    # tmux new-window -n ng-serve -t portal:2 -c $selected/app '$env_vars pipenv run npx ng serve --configuration=local'
+
+    # All of the splits below use the same environment as the second window yet for whatever reason sourcing when the original window is created
+    # does not automatically become available to these commands
+    tmux split-window -t $selected_name-dev:1 -c $selected "$source_me; $env_vars $be_command $url"
+    tmux split-window -t $selected_name-dev:1 -c $selected "$source_me; $env_vars $db_command"
+    tmux split-window -t $selected_name-dev:1 -c $selected/app "$source_me; $env_vars $fe_command$url" # no space between $fe_command and $url is intentional
+    # tmux send-keys -t $selected_name-dev:1.0 "$env_vars $be_command $url" Enter
+    # tmux send-keys -t $selected_name-dev:1.1 "$env_vars $db_command" Enter
+    # tmux send-keys -t $selected_name-dev:1.2 "$env_vars $fe_command$url" Enter
+
+fi
+
+tmux switch-client -t $selected_name
+tmux select-layout -t $selected_name even-vertical

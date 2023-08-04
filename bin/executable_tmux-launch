@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+tmux_running=$(pgrep tmux)
+
+PATH=/Users/mslanker/.nvm/versions/node/v14.21.2/bin:/Users/mslanker/.rbenv/shims:/Users/mslanker/.pyenv/shims:/Users/mslanker/.pyenv/bin:/Users/mslanker/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/Applications/Wireshark.app/Contents/MacOS
+
+clear
+
+if ! [[ -z $tmux_running ]]; then
+while true; do
+	read -n 1 -p "Do you want to start a new session? (Y/n) " yn
+
+	case $yn in
+		"" ) tmux new-session ";" set detach-on-destroy on;
+			exit;;
+		[yY] ) tmux new-session ";" set detach-on-destroy on;
+			exit;;
+		[nN] ) tmux a;
+			exit;;
+		* ) printf "\nInvalid option\n";;
+	esac
+done
+fi
+
+exec tmux new -A -s default
