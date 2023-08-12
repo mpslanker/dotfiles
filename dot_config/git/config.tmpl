@@ -14,7 +14,7 @@
 {{ if eq .computer.type "work" }}
 ; Override email in {{ .company.name }} folder
 [includeIf "gitdir:~/code/{{ .company.name | lower }}/**"]
-  	path = .work.gitconfig
+  	path = work.config
 {{ end }}
 [filter "lfs"]
 	clean = git-lfs clean -- %f
