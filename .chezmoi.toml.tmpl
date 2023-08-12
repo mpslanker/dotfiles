@@ -1,4 +1,39 @@
+{{- $computer := promptString "computertype" "computer type (self/work)" -}}
+{{- $hasOp := isExecutable "/usr/local/bin/op" -}}
+
 encryption = "age"
 [age]
     identity = "~/key.txt"
     recipient = "age1j477f0jjw308758ecvkhx4p9zcp7zy3s57zsu5jhwkd7hv9g9peqajdj58"
+
+[data]
+{{- if $hasOp }}
+
+  {{ "1Password Values" | comment "# "}}
+  {{ includeTemplate "opSecrets.toml.tmpl" (dict "computer" $computer) }}
+{{- end -}}
+
+{{ if not $hasOp }}
+  {{- $name := promptString "name" "Your name" -}}
+  {{- $email := promptString "email" "Email Address" -}}
+  {{- $keyname := promptString "keyname" "SSH Key Name" -}}
+  {{- $company_name := promptString "company_name" "Comany Name" -}}
+  {{- $company_email := promptString "company_email" "Company Email Address" -}}
+  {{- $company_keyname := promptString "company_keyname" "Company SSH Key Name" }}
+  {{ "Prompted Values" | comment "# "}}
+  
+  [data.user]
+    name = "{{- $name }}"
+    email = "{{- $email }}"
+    keyname = "{{- $keyname }}"
+  {{- if eq $computer "work" }}
+  
+  [data.company]
+    name = "{{- $company_name }}"
+    email = "{{- $company_email }}"
+    keyname = "{{- $company_keyname }}"
+  {{- end -}}
+{{- end }}
+  
+  [data.computer]
+    type = "{{ $computer }}"
