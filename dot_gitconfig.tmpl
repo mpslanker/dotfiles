@@ -1,0 +1,25 @@
+; Global Configurations
+[user]
+	name = Matthew Slanker
+  	email = {{ .user.email }}
+
+[init]
+	defaultBranch = main
+
+[pull]
+	rebase = false
+
+[core]
+	sshCommand = ssh -i ~/.ssh/{{ .user.keyname }}
+{{ if eq .computer.type "work" }}
+; Override email in {{ .company.name }} folder
+[includeIf "gitdir:~/code/{{ .company.name | lower }}/**"]
+  	path = .work.gitconfig
+{{ end }}
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[fetch]
+	prune = true

@@ -1,0 +1,6 @@
+; {{ .company.name }} Configuration Overrides
+[user]
+  email = {{ .company.email }}
+
+[core]
+  sshCommand = ssh -i ~/.ssh/{{- .company.keyname -}}
