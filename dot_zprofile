@@ -26,7 +26,8 @@ eval "$(pyenv init --path)"
 
 eval "$(rbenv init - zsh)"
 
-FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+# Looks like this might not be needed
+# FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
 
 
 # Bindkey f for fzf
