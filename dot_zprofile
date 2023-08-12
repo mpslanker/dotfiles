@@ -47,6 +47,9 @@ export NVM_DIR="$HOME/.nvm"
 [ -f ~/.cargo/env ] && source ~/.cargo/env
 
 function gi() { curl -sLw n https://www.toptal.com/developers/gitignore/api/$@ ;}
+function whobranched() {
+    git log --reverse $1 ^$(git merge-base $1 main) -n 1 --pretty=format:"%an"
+}
 
 pb-kill-line () {
   zle kill-line   # `kill-line` is the default ctrl+k binding

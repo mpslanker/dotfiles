@@ -1,0 +1,4 @@
+# echo "[$(date)] PID: $$ PPID: $(ps -o ppid= -p $$)  Sourcing  ${funcstack[-1]} \t# $(ps -o args= -p $$)" >> /Users/mslanker/zsh_init.log
+# Added for helping debug path and environment issues
+if [[ -f ~/.path_debug ]]; then echo "Loading $0 - $(date)"; fi
+ 
