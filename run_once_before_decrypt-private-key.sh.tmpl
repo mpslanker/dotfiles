@@ -9,6 +9,7 @@ command_exists () {
 install_age_mac () {
   if command_exists "age"; then
     echo "age is already installed."
+    return
   fi
 
   if ! command_exists "brew"; then
