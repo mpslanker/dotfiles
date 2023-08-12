@@ -1,5 +1,55 @@
 #!/bin/sh
 
+# Function to check if a command exists
+command_exists () {
+  command -v "$1" >/dev/null 2>&1
+}
+
+# Function to install age on macOS using Homebrew
+install_age_mac () {
+  if command_exists "age"; then
+    echo "age is already installed."
+  fi
+
+  if ! command_exists "brew"; then
+    echo "Homebrew is not installed. Installing now..."
+    /bin/sh -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  fi
+  echo "Installing age..."
+  brew install age
+}
+
+# Function to install age on Linux
+install_age_linux () {
+  if command_exists "age"; then
+    echo "age is already installed."
+    return
+  fi
+
+  if command_exists "apt-get"; then
+    echo "Installing age using apt..."
+    sudo apt-get update
+    sudo apt-get install -y age
+  elif command_exists "yum"; then
+    echo "Installing age using yum..."
+    sudo yum install age
+  else
+    echo "Unsupported package manager. Please install age manually."
+    exit 1
+  fi
+}
+
+# Check the OS and install accordingly
+OS=$(uname)
+if [ "$OS" = "Darwin" ]; then
+  install_age_mac
+elif [ "$OS" = "Linux" ]; then
+  install_age_linux
+else
+  echo "Unsupported OS. Please install age manually."
+  exit 1
+fi
+
 if [ ! -f "/Users/mslanker/key.txt" ]; then
     age --decrypt --output "/Users/mslanker/key.txt" "{{ .chezmoi.sourceDir }}/key.txt.age"
     chmod 600 "/Users/mslanker/key.txt"
