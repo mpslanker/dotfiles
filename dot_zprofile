@@ -1,4 +1,6 @@
-echo "[$(date)] PID: $$ PPID: $(ps -o ppid= -p $$)  Sourcing  ${funcstack[-1]}	\t# $(ps -o args= -p $$)" >> /Users/mslanker/zsh_init.log
+# echo "[$(date)] PID: $$ PPID: $(ps -o ppid= -p $$)  Sourcing  ${funcstack[-1]}	\t# $(ps -o args= -p $$)" >> /Users/mslanker/zsh_init.log
+# exec 2> ~/zsh-debug-log.txt
+# set -x
 
 # ~/.zprofile
 
