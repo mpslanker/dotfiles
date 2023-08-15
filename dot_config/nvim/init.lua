@@ -9,5 +9,3 @@ require('opts')
 require('keys')
 require('plug')
 
--- PLUGINS
-require('nvim-tree').setup{}

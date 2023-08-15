@@ -1,24 +1,38 @@
 -- [[ plug.lua ]]
 
-return require('packer').startup(function(use)
-    -- [[ Plugins Go Here ]]
-    -- Packer can manage itself
-    use 'wbthomason/packer.nvim'
-    use {
-        'kyazdani42/nvim-tree.lua',
-        requires = 'kyazdani42/nvim-web-devicons'
-    }
-    use 'folke/tokyonight.nvim'
-    use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-    use {
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
+
+local plugins = {
+    'nvim-tree/nvim-tree.lua',
+    'nvim-tree/nvim-web-devicons',
+    'nvim-treesitter/nvim-treesitter',
+    'nvim-treesitter/Playground', 
+    'nvim-lualine/lualine.nvim',
+    'folke/tokyonight.nvim',
+    {
         'nvim-telescope/telescope.nvim',
         tag = '0.1.0',
-        requires = { {'nvim-lua/plenary.nvim'} }
-    }
-    use { 'nvim-treesitter/Playground' }
-    use { 'theprimeagen/harpoon' }
-    use { 'mbbill/undotree' }
-    use { 'tpope/vim-fugitive' }
-    use { 'tpope/vim-surround' }
-end
-)
+        dependencies = { {'nvim-lua/plenary.nvim'} }
+    },
+    'theprimeagen/harpoon',
+    'mbbill/undotree',
+    'tpope/vim-fugitive',
+    'tpope/vim-surround',
+    -- completion
+    'williamboman/mason.nvim',
+    'williamboman/mason-lspconfig.nvim',
+    'neovim/nvim-lspconfig'
+}
+
+require("lazy").setup(plugins, opts)

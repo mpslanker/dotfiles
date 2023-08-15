@@ -8,6 +8,7 @@ vim.keymap.set("n", "<leader>pv", "<cmd>:Ex<CR>")
 
 -- Toggle nvim-tree
 vim.keymap.set("n", "<leader>n", "<cmd>NvimTreeToggle<CR>")
+vim.keymap.set("n", "<c-n>", "<cmd>NvimTreeFindFileToggle<CR>")
 
 -- Clearing search
 vim.keymap.set("n", "<C-l>", "<cmd>nohl<CR>")
