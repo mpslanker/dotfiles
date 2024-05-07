@@ -17,14 +17,13 @@ local plugins = {
     'nvim-tree/nvim-tree.lua',
     'nvim-tree/nvim-web-devicons',
     'nvim-treesitter/nvim-treesitter',
-    'nvim-treesitter/Playground', 
     'nvim-lualine/lualine.nvim',
     'folke/tokyonight.nvim',
     {
         'nvim-telescope/telescope.nvim',
-        tag = '0.1.0',
         dependencies = { {'nvim-lua/plenary.nvim'} }
     },
+    'xiyaowong/transparent.nvim',
     'theprimeagen/harpoon',
     'mbbill/undotree',
     'tpope/vim-fugitive',
