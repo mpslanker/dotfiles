@@ -19,9 +19,9 @@ module.exports = {
       // Please note that control usually opens a tooltip menu instead of visiting a link
       match: () => finicky.getKeys().option,
 {{- if ne .chezmoi.hostname "mjolnir" }}
-      Browser: "Safari",
+      browser: "Safari",
 {{- else }}
-      Browser: "com.google.Chrome",
+      browser: "com.google.Chrome",
 {{- end }}
     },
     // Select Programs
