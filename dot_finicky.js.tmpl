@@ -2,7 +2,11 @@
 // Save as ~/.finicky.js
 
 module.exports = {
+{{ if ne .chezmoi.hostname "mjolnir" }}
   defaultBrowser: "com.google.Chrome",
+{{ else }}
+  defaultBrowser: "Safari",
+{{ end }}
   options: {
     hideIcon: false,
     checkForUpdate: true,
@@ -14,7 +18,11 @@ module.exports = {
       // Valid keys are: shift, option, command, control, capsLock, and function.
       // Please note that control usually opens a tooltip menu instead of visiting a link
       match: () => finicky.getKeys().option,
-      browser: "Safari"
+{{ if ne .chezmoi.hostname "mjolnir" }}
+      Browser: "Safari",
+{{ else }}
+      Browser: "com.google.Chrome",
+{{ end }}
     },
     // Select Programs
     {
