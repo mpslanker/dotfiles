@@ -1,5 +1,6 @@
 # Core ignore rules
 **/.DS_Store
+**/nogit/**
 
 # Temporarily ignore
-devkit/
+**/devkit/**
