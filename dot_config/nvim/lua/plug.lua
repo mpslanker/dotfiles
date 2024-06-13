@@ -24,8 +24,12 @@ local plugins = {
         dependencies = { {'nvim-lua/plenary.nvim'} }
     },
     'xiyaowong/transparent.nvim',
-    'theprimeagen/harpoon',
     'mbbill/undotree',
+    {
+        "ThePrimeagen/harpoon",
+        branch = "harpoon2",
+        dependencies = { "nvim-lua/plenary.nvim" }
+    },
     'tpope/vim-fugitive',
     'tpope/vim-surround',
     { 'echasnovski/mini.nvim', version = false },
