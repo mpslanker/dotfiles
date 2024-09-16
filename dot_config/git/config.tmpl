@@ -13,11 +13,9 @@
 	sshCommand = ssh -i ~/.ssh/{{ .user.keyname }}
 	excludesfile = ~/.config/git/.gitignore
 
-{{- if eq .computer.type "work" }}
 ; Override email in {{ .company.name }} folder
 [includeIf "gitdir:~/code/{{ .company.name | lower }}/**"]
   	path = config.work
-{{- end }}
 
 [filter "lfs"]
 	clean = git-lfs clean -- %f
