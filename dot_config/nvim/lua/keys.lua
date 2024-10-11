@@ -4,18 +4,18 @@
 vim.keymap.set("i", "jk", "<esc>")
 
 -- Activate netrw
-vim.keymap.set("n", "<leader>pv", "<cmd>:Ex<CR>")
+-- vim.keymap.set("n", "<leader>pv", "<cmd>:Ex<CR>")
 
 -- Toggle nvim-tree
-vim.keymap.set("n", "<leader>n", "<cmd>NvimTreeToggle<CR>")
-vim.keymap.set("n", "<c-n>", "<cmd>NvimTreeFindFileToggle<CR>")
+vim.keymap.set("n", "<leader>n", "<cmd>Neotree toggle position=left<CR>")
+vim.keymap.set("n", "<c-n>", "<cmd>Neotree reveal<CR>")
 
 -- Clearing search
 vim.keymap.set("n", "<C-l>", "<cmd>nohl<CR>")
 
 -- Allow for moving highlighted lines up and down
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv") -- move lines up
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv") -- move lines down
 
 -- Convenience Mappings
 vim.keymap.set("n", "J", "mzJ`z")

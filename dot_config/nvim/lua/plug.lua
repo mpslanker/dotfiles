@@ -1,5 +1,6 @@
 -- [[ plug.lua ]]
 
+-- Install package manager
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
     vim.fn.system({
@@ -13,9 +14,18 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- Define a table with the list of plugins and their deps
 local plugins = {
-    'nvim-tree/nvim-tree.lua',
-    'nvim-tree/nvim-web-devicons',
+    {
+        "nvim-neo-tree/neo-tree.nvim",
+        branch = "v3.x",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+            "MunifTanjim/nui.nvim",
+            -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+        }
+    },
     'nvim-treesitter/nvim-treesitter',
     'nvim-lualine/lualine.nvim',
     'folke/tokyonight.nvim',

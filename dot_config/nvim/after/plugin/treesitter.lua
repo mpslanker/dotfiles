@@ -11,7 +11,8 @@ require'nvim-treesitter.configs'.setup {
       "vim",
       "vimdoc",
       "ruby",
-      "query"
+      "query",
+      "vimdoc"
   },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)

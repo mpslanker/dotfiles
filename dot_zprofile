@@ -66,3 +66,5 @@ zle -N pb-kill-line  # register our new function
 # Uncomment below to keep ctrl-k as is; ctrl-shift-k will use pbcoopy
 #bindkey '^k' pb-kill-line  # change the ctrl+k binding to use our new function
 bindkey '^K' pb-kill-line  # change the ctrl+k binding to use our new function
+
+alias gitp='git pull'
