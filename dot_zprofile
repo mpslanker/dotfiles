@@ -18,19 +18,9 @@ eval $(/opt/homebrew/bin/brew shellenv)
 export "PATH=$HOME/bin:$PATH"
 export EDITOR="/opt/homebrew/bin/nvim"
 
-# Configuring Python (pyenv)
-export PYENV_ROOT="$HOME/.pyenv"
-# The following line is supposed to make PipEnv respect PyEnv's active Python
-# However, it is causing it pick up the first python found in PipEnv shims
-# export PIPENV_PYTHON="$PYENV_ROOT/shims/python"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
+eval "$(pyenv init - zsh)"
 
 eval "$(rbenv init - zsh)"
-
-# Looks like this might not be needed
-# FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
-
 
 # Bindkey f for fzf
 bindkey -s ^f "tmux-sessionizer\n"
@@ -39,10 +29,6 @@ bindkey -s ^f "tmux-sessionizer\n"
 autoload -Uz compinit bashcompinit
 compinit
 bashcompinit
-
-# tabtab source for packages
-# uninstall by removing these lines
-# [[ -f ~/.config/tabtab/__tabtab.zsh ]] && . ~/.config/tabtab/__tabtab.zsh || true
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && . "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
